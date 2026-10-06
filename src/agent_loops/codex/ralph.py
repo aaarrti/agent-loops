@@ -56,14 +56,14 @@ def run_ralph(args: argparse.Namespace) -> None:
     raise RuntimeError(f"max iterations ({args.max_iterations}) reached without COMPLETE")
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", required=True, type=Path, default=".codex/PRD.md")
     parser.add_argument("--progress", required=True, type=Path, default=".codex/PROGRESS.md")
     parser.add_argument("--max-iterations", required=True, type=int, default=10)
     parser.add_argument("--model", default="gpt-5.6-luna")
     parser.add_argument("--reasoning-effort", default="medium")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if not args.task.is_file():
         parser.error(f"task file not found: {args.task}")
     if args.max_iterations < 1:
@@ -71,9 +71,9 @@ def parse_args() -> argparse.Namespace:
     return args
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     try:
-        run_ralph(parse_args())
+        run_ralph(parse_args(argv))
     except (OSError, RuntimeError) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1

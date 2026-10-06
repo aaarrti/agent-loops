@@ -248,7 +248,7 @@ def run_actor_critic(args: argparse.Namespace) -> None:
     raise RuntimeError(f"max iterations ({args.max_iterations}) reached without critic completion")
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", required=True, type=Path, default=".codex/PRD.md")
     parser.add_argument("--max-iterations", required=True, type=int, default=10)
@@ -257,7 +257,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--actor-reasoning-level", default="medium")
     parser.add_argument("--critic-reasoning-level", default="high")
     parser.add_argument("--persist-sessions", action="store_true")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if not args.task.is_file():
         parser.error(f"task file not found: {args.task}")
     if args.max_iterations < 1:
@@ -265,9 +265,9 @@ def parse_args() -> argparse.Namespace:
     return args
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     try:
-        run_actor_critic(parse_args())
+        run_actor_critic(parse_args(argv))
     except (OSError, RuntimeError) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
