@@ -1,0 +1,14 @@
+[[rules]]
+id = "hardcoded-identity-or-secret"
+description = "Hard-coded identity or secret field"
+regex = '''(?i)["']?(password|passwd|pwd|api[_-]?key|secret|token|username|user[_-]?name|login|first[_-]?name|last[_-]?name|full[_-]?name|display[_-]?name)["']?[ \t]*[:=][ \t]*["'][^"'$<{][^"']{2,}["']'''
+
+    [[rules.allowlists]]
+    stopwords = [
+        "changeme",
+        "dummy",
+        "example",
+        "placeholder",
+        "redacted",
+        "test",
+    ]
