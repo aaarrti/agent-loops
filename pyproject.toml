@@ -1,0 +1,29 @@
+[project]
+name = "agent-loops"
+version = "0.1.0.dev1"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "aaarrti", email = "artem.sereda.tub@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+ralp_loop = "agent_loops.codex.ralph:main"
+actor_critic_loop = "agent_loops.codex.actor_critic:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "black>=26.10.0",
+    "pytest>=9.1.1",
+    "pytest-sugar>=1.1.1",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py314"]
