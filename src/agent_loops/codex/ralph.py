@@ -58,6 +58,7 @@ def run_ralph(args: argparse.Namespace) -> None:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--provider", choices=("codex", "claude", "gemini"), default="codex")
     parser.add_argument("--task", required=True, type=Path, default=".codex/PRD.md")
     parser.add_argument("--progress", required=True, type=Path, default=".codex/PROGRESS.md")
     parser.add_argument("--max-iterations", required=True, type=int, default=10)
